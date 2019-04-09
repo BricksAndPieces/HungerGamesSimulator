@@ -1,3 +1,5 @@
+package tribute;
+
 public class Inventory {
 
     public enum Food {

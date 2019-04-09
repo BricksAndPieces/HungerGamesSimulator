@@ -26,7 +26,7 @@ public class Tribute {
         this.weapons = new ArrayList<>();
         this.food = new ArrayList<>();
 
-        alliance = null;
+        this.alliance = null;
 
         this.dead = false;
         this.health = 100;
@@ -81,9 +81,20 @@ public class Tribute {
         return this.alliance;
     }
 
+    public boolean inAlliance() {
+        return this.alliance != null;
+    }
+
     public void joinAlliance(final Alliance alliance) {
+        this.leaveAlliance();
+
         this.alliance = alliance;
         this.alliance.join(this);
+    }
+
+    public void leaveAlliance() {
+        if(this.alliance != null)
+            this.alliance.leaveAlliance(this);
     }
 
     public boolean isDead() {

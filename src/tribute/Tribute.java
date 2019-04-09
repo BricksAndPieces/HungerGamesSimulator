@@ -138,7 +138,7 @@ public class Tribute {
 
     @Override
     public String toString() {
-        return String.format("tribute.Tribute{name=%s,health=%d,skill=%d}", this.name, this.health, this.skill);
+        return String.format("Tribute{name=%s,health=%d,skill=%d}", this.name, this.health, this.skill);
     }
 
     @Override

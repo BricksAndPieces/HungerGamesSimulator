@@ -1,3 +1,5 @@
+package tribute;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +13,8 @@ public class Tribute {
     private final List<Inventory.Weapon> weapons;
     private final List<Inventory.Food> food;
 
+    private Alliance alliance;
+
     private boolean dead;
     private int health;
     private int skill;
@@ -21,6 +25,8 @@ public class Tribute {
 
         this.weapons = new ArrayList<>();
         this.food = new ArrayList<>();
+
+        alliance = null;
 
         this.dead = false;
         this.health = 100;
@@ -35,40 +41,49 @@ public class Tribute {
         return this.icon;
     }
 
-    public boolean hasWeapon(final Inventory.Weapon w) {
-        return this.weapons.contains(w);
+    public boolean hasWeapon(final Inventory.Weapon weapon) {
+        return this.weapons.contains(weapon);
     }
 
-    public void findWeapon(final Inventory.Weapon w) {
-        this.weapons.add(w);
+    public void findWeapon(final Inventory.Weapon weapon) {
+        this.weapons.add(weapon);
     }
 
-    public void discardWeapon(final Inventory.Weapon w) {
-        if(this.weapons.contains(w))
-            this.weapons.remove(w);
+    public void discardWeapon(final Inventory.Weapon weapon) {
+        if(this.weapons.contains(weapon))
+            this.weapons.remove(weapon);
     }
 
     public List<Inventory.Weapon> getWeapons() {
         return Collections.unmodifiableList(this.weapons);
     }
 
-    public boolean hasFood(final Inventory.Food f) {
-        return this.food.contains(f);
+    public boolean hasFood(final Inventory.Food food) {
+        return this.food.contains(food);
     }
 
-    public void findFood(final Inventory.Food f) {
-        this.food.add(f);
+    public void findFood(final Inventory.Food food) {
+        this.food.add(food);
     }
 
-    public void eatFood(final Inventory.Food f) {
-        if(this.food.contains(f)) {
-            this.regainHealth(f.getHealth());
-            this.food.remove(f);
+    public void eatFood(final Inventory.Food food) {
+        if(this.food.contains(food)) {
+            this.regainHealth(food.getHealth());
+            this.food.remove(food);
         }
     }
 
     public List<Inventory.Food> getFood() {
         return Collections.unmodifiableList(this.food);
+    }
+
+    public Alliance getAlliance() {
+        return this.alliance;
+    }
+
+    public void joinAlliance(final Alliance alliance) {
+        this.alliance = alliance;
+        this.alliance.join(this);
     }
 
     public boolean isDead() {
@@ -87,12 +102,12 @@ public class Tribute {
         return this.health;
     }
 
-    public void regainHealth(final int n) {
-        this.health = Math.min(health+n, 100);
+    public void regainHealth(final int regain) {
+        this.health = Math.min(health+regain, 100);
     }
 
-    public boolean loseHealth(final int n) {
-        this.health = Math.min(health-n, 0);
+    public boolean loseHealth(final int lose) {
+        this.health = Math.min(health-lose, 0);
 
         if(this.health == 0) {
             this.kill();
@@ -112,7 +127,7 @@ public class Tribute {
 
     @Override
     public String toString() {
-        return String.format("Tribute{name=%s,health=%d,skill=%d}", this.name, this.health, this.skill);
+        return String.format("tribute.Tribute{name=%s,health=%d,skill=%d}", this.name, this.health, this.skill);
     }
 
     @Override

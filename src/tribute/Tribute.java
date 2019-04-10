@@ -1,5 +1,8 @@
 package tribute;
 
+import tribute.inventory.Food;
+import tribute.inventory.Weapon;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +16,10 @@ public class Tribute {
 
     private final String name;
     private final BufferedImage icon;
+    private final int district;
 
-    private final List<Inventory.Weapon> weapons;
-    private final List<Inventory.Food> food;
+    private final List<Weapon> weapons;
+    private final List<Food> food;
 
     private Alliance alliance;
 
@@ -33,9 +37,10 @@ public class Tribute {
      * @param icon
      * The avatar to be used for the corresponding Tribute
      */
-    public Tribute(final String name, final BufferedImage icon) {
+    public Tribute(final String name, final BufferedImage icon, final int district) {
         this.name = name;
         this.icon = icon;
+        this.district = district;
 
         this.weapons = new ArrayList<>();
         this.food = new ArrayList<>();
@@ -68,6 +73,16 @@ public class Tribute {
     }
 
     /**
+     * The district the Tribute is part of
+     *
+     * @return
+     * The integer value representation of the Tribute's district
+     */
+    public int getDistrict() {
+        return this.district;
+    }
+
+    /**
      * Checks whether or not the Tribute has a certain weapon.
      *
      * @param weapon
@@ -76,7 +91,7 @@ public class Tribute {
      * @return
      * Returns true if the Tribute has the weapon, else returns false
      */
-    public boolean hasWeapon(final Inventory.Weapon weapon) {
+    public boolean hasWeapon(final Weapon weapon) {
         return this.weapons.contains(weapon);
     }
 
@@ -86,7 +101,7 @@ public class Tribute {
      * @param weapon
      * The weapon to add to inventory
      */
-    public void findWeapon(final Inventory.Weapon weapon) {
+    public void findWeapon(final Weapon weapon) {
         this.weapons.add(weapon);
     }
 
@@ -96,7 +111,7 @@ public class Tribute {
      * @param weapon
      * The weapon to remove from inventory
      */
-    public void discardWeapon(final Inventory.Weapon weapon) {
+    public void discardWeapon(final Weapon weapon) {
         if(this.weapons.contains(weapon))
             this.weapons.remove(weapon);
     }
@@ -107,7 +122,7 @@ public class Tribute {
      * @return
      * A list of all weapons currently in the Tribute's inventory
      */
-    public List<Inventory.Weapon> getWeapons() {
+    public List<Weapon> getWeapons() {
         return Collections.unmodifiableList(this.weapons);
     }
 
@@ -120,7 +135,7 @@ public class Tribute {
      * @return
      * Returns true if the Tribute has the food, else returns false
      */
-    public boolean hasFood(final Inventory.Food food) {
+    public boolean hasFood(final Food food) {
         return this.food.contains(food);
     }
 
@@ -130,7 +145,7 @@ public class Tribute {
      * @param food
      * The food to add to inventory
      */
-    public void findFood(final Inventory.Food food) {
+    public void findFood(final Food food) {
         this.food.add(food);
     }
 
@@ -140,7 +155,7 @@ public class Tribute {
      * @param food
      * The food item to be consumed
      */
-    public void eatFood(final Inventory.Food food) {
+    public void eatFood(final Food food) {
         if(this.food.contains(food)) {
             this.regainHealth(food.getHealth());
             this.food.remove(food);
@@ -153,7 +168,7 @@ public class Tribute {
      * @return
      * A list of all foods currently in the Tribute's inventory
      */
-    public List<Inventory.Food> getFood() {
+    public List<Food> getFood() {
         return Collections.unmodifiableList(this.food);
     }
 

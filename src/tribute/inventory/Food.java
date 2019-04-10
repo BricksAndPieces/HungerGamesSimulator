@@ -31,7 +31,7 @@ public enum Food {
         return this.rarity;
     }
 
-    public Food getRandom() {
+    public static Food getRandom() {
         // TODO: return a random Weapon taking rarity into account
 
 

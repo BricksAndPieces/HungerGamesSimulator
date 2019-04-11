@@ -4,23 +4,23 @@ public enum Weapon {
 
     // TODO: Balance the weapons
 
-    ROCK("Rock", 10, 7),
-    STICK("Stick", 15, 1),
-    SWORD("Sword", 40, 8),
-    BATTLEAXE("Battle Axe", 35, 6),
-    TRIDENT("Trident", 45, 9,  true),
-    BOW("Bow", 30, 6, true, "Arrow"),
-    CROSSBOW("Crossbow", 35, 7, true, "Arrow");
+    ROCK("Rock", 10, 0.2),
+    STICK("Stick", 15, 0.9),
+    SWORD("Sword", 40, 0.1),
+    BATTLEAXE("Battle Axe", 35, 0.2),
+    TRIDENT("Trident", 45, 0.05,  true),
+    BOW("Bow", 30, 0.3, true, "Arrow"),
+    CROSSBOW("Crossbow", 35, 0.1, true, "Arrow");
 
     private final String name;
     private final int damage;
-    private final int rarity;
+    private final double rarity;
 
     private final boolean ranged;
     private final boolean needsAmmo;
     private final String ammoName;
 
-    Weapon(final String name, final int damage, final int rarity) {
+    Weapon(final String name, final int damage, final double rarity) {
         this.name = name;
         this.damage = damage;
         this.rarity = rarity;
@@ -29,7 +29,7 @@ public enum Weapon {
         this.ammoName = null;
     }
 
-    Weapon(final String name, final int damage, final int rarity, final boolean ranged) {
+    Weapon(final String name, final int damage, final double rarity, final boolean ranged) {
         this.name = name;
         this.damage = damage;
         this.rarity = rarity;
@@ -38,7 +38,7 @@ public enum Weapon {
         this.ammoName = null;
     }
 
-    Weapon(final String name, final int damage, final int rarity, final boolean ranged, final String ammoName) {
+    Weapon(final String name, final int damage, final double rarity, final boolean ranged, final String ammoName) {
         this.name = name;
         this.damage = damage;
         this.rarity = rarity;
@@ -55,7 +55,7 @@ public enum Weapon {
         return this.damage;
     }
 
-    public int getRarity() {
+    public double getRarity() {
         return this.rarity;
     }
 
@@ -71,10 +71,19 @@ public enum Weapon {
         return this.ammoName;
     }
 
-    public Weapon getRandom() {
-        // TODO: return a random Weapon taking rarity into account
+    public static Weapon getRandom() {
+        double sum = 0;
+        for(final Weapon weapon : values())
+            sum += weapon.rarity;
 
+        final double rand = Math.random() * sum;
+        for(final Weapon weapon : values()) {
+            sum -= weapon.rarity;
 
-        return null;
+            if(sum < rand)
+                return weapon;
+        }
+
+        throw new RuntimeException("This should never happen");
     }
 }

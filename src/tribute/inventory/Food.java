@@ -32,9 +32,18 @@ public enum Food {
     }
 
     public static Food getRandom() {
-        // TODO: return a random Weapon taking rarity into account
+        double sum = 0;
+        for(final Food food : values())
+            sum += food.rarity;
 
+        final double rand = Math.random() * sum;
+        for(final Food food : values()) {
+            sum -= food.rarity;
 
-        return null;
+            if(sum < rand)
+                return food;
+        }
+
+        throw new RuntimeException("This should never happen");
     }
 }

@@ -194,26 +194,26 @@ public class Tribute {
     }
 
     /**
-     * Makes the Tribute join the specified Alliance.
-     * The Tribute will leave any alliance they are in before joining a new one
+     * Makes the Tribute add the specified Alliance.
+     * The Tribute will remove any alliance they are in before joining a new one
      *
      * @param alliance
-     * The Alliance the Tribute is seeking to join
+     * The Alliance the Tribute is seeking to add
      */
     public void joinAlliance(final Alliance alliance) {
         this.leaveAlliance();
 
         this.alliance = alliance;
-        this.alliance.join(this);
+        this.alliance.add(this);
     }
 
     /**
-     * Makes the Tribute leave the Alliance it is currently in.
+     * Makes the Tribute remove the Alliance it is currently in.
      * If the Alliance is null, this method does nothing
      */
     public void leaveAlliance() {
         if(this.alliance != null)
-            this.alliance.leave(this);
+            this.alliance.remove(this);
     }
 
     /**
@@ -231,6 +231,7 @@ public class Tribute {
      */
     public void kill() {
         this.dead = true;
+        this.health = 0;
     }
 
     /**
@@ -238,6 +239,7 @@ public class Tribute {
      */
     public void revive() {
         this.dead = false;
+        this.health = 20;
     }
 
     /**

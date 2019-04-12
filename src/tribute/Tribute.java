@@ -21,8 +21,6 @@ public class Tribute {
     private final List<Weapon> weapons;
     private final List<Food> food;
 
-    private Alliance alliance;
-
     private boolean dead;
     private int health;
     private int skill;
@@ -44,8 +42,6 @@ public class Tribute {
 
         this.weapons = new ArrayList<>();
         this.food = new ArrayList<>();
-
-        this.alliance = null;
 
         this.dead = false;
         this.health = 100;
@@ -173,50 +169,6 @@ public class Tribute {
     }
 
     /**
-     * The alliance that the Tribute is currently a member of
-     *
-     * @return
-     * The corresponding Alliance the Tribute is currently a member of.
-     * Returns null if there is no Alliance
-     */
-    public Alliance getAlliance() {
-        return this.alliance;
-    }
-
-    /**
-     * Whether or not the Tribute is currently in an Alliance
-     *
-     * @return
-     * Returns true if the Tribute is in an Alliance, else returns false
-     */
-    public boolean inAlliance() {
-        return this.alliance != null;
-    }
-
-    /**
-     * Makes the Tribute add the specified Alliance.
-     * The Tribute will remove any alliance they are in before joining a new one
-     *
-     * @param alliance
-     * The Alliance the Tribute is seeking to add
-     */
-    public void joinAlliance(final Alliance alliance) {
-        this.leaveAlliance();
-
-        this.alliance = alliance;
-        this.alliance.add(this);
-    }
-
-    /**
-     * Makes the Tribute remove the Alliance it is currently in.
-     * If the Alliance is null, this method does nothing
-     */
-    public void leaveAlliance() {
-        if(this.alliance != null)
-            this.alliance.remove(this);
-    }
-
-    /**
      * The current living state of the Tribute
      *
      * @return
@@ -232,14 +184,6 @@ public class Tribute {
     public void kill() {
         this.dead = true;
         this.health = 0;
-    }
-
-    /**
-     * Revives a Tribute, isDead() will now return false
-     */
-    public void revive() {
-        this.dead = false;
-        this.health = 20;
     }
 
     /**
